@@ -11,7 +11,8 @@ const {create, read, readById, update, del} = require('./api/controllers/todorou
 const {createUser, verifyAccount, userlogin, resetInitiate, validate, updateUser, logOutUser} = require('./api/controllers/userroute')
 
 mongoose.connect("mongodb://mrexcel:jesuse153@ds259732.mlab.com:59732/todo-api");
-app.use(cors())
+app.use(cors());
+app.options("/*", cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -54,12 +55,11 @@ a127.init(function(config) {
   app.put('/users/:email',updateUser);
   app.delete('/users',logOutUser)
 
-  // var ip = process.env.IP || 'localhost';
+  var ip = process.env.IP || 'localhost';
   var port = process.env.PORT || 3000;
   // 10010;
   // begin listening for client requests
-  app.listen(port)
-    // ip);
-
-  console.log('try this:\ncurl http://' + ip + ':' + port + '/hello?name=Scott');
+  app.listen(port, () => {
+    console.log(`App running on IP ${ip} and port ${port}`);
+  });
 });
