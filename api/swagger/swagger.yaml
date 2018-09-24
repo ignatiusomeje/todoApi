@@ -1,0 +1,395 @@
+swagger: "2.0"
+info:
+  description: This is a Todo App that allows registered users to perform basic CRUD operation on their todos and profile
+  version: 1.0.0
+  title: A Basic Todo APP
+host: localhost:3000
+basePath: "/"
+produces:
+- application/json
+consumes:
+- application/json
+tags:
+- name: Todos
+  description: Creates, Reads, Updates and Deletes your Todo
+- name: Users
+  description: performs all users Action
+schemes:
+- http
+- https
+paths:
+  /todos:
+    post:
+      tags:
+      - Todos
+      summary: Allows a User to add a new Todo
+      description: ""
+      x-swagger-router-controller: todoroute
+      operationId: create
+      parameters:
+        - in: header
+          name: Bearer
+          description: Authentication Header
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: body of the todo
+          required: true
+          schema:
+            type: object
+            required:
+                 - activity
+            properties:
+              activity:
+                type: string
+                description: the user's activity
+      responses:
+        200:
+          description: Successful Todo Creation
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+    get:
+      tags:
+        - Todos
+      summary: gets all the user's saved Todo
+      description: ""
+      x-swagger-router-controller: todoroute
+      operationId: read
+      parameters:
+        - in: header
+          name: Bearer
+          description: Authentication Header
+          type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          schema: 
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+  /todos/{id}:
+    get:
+      tags:
+        - Todos
+      summary: returns only a single Todo using it's ID
+      description: ""
+      x-swagger-router-controller: todoroute
+      operationId: readById
+      parameters:
+        - in: header
+          name: "Bearer"
+          type: string
+          description: Authentication Header
+          required: true
+        - in: path
+          name: id
+          description: the id of the individual todo
+          type: string
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+    put:
+      tags:
+        - Todos
+      summary: updates a given todo
+      description: ""
+      x-swagger-router-controller: todoroute
+      operationId: update
+      parameters:
+        - in: header
+          name: Bearer
+          type: string
+          description: Authentication Header
+          required: true
+        - in: path
+          name: id
+          description: the Id of the todo to be updated
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: body of the todo
+          required: true
+          schema:
+            type: object
+            required:
+                - activity
+            properties:
+              activity:
+                type: string
+              completed:
+                type: boolean
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+    delete:
+      tags:
+        - Todos
+      summary: Deletes a given Todo
+      description: ""
+      x-swagger-router-controller: todoroute
+      operationId: del
+      parameters:
+        - in: header
+          name: Bearer
+          type: string
+          description: Authentication Header
+          required: true
+        - in: path
+          name: id
+          type: string
+          description: the Id of the Todo to be deleted
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Creates a User
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: createUser
+      parameters:
+        - in: body
+          name: body
+          description: Details of the User to be saved
+          required: true
+          schema:
+            type: object
+            required:
+              - username
+              - email
+              - password
+            properties:
+              username:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+    delete:
+      tags: 
+        - Users
+      summary: sign's out a user
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: logOutUser
+      parameters:
+        - in: header
+          name: Bearer
+          type: string
+          description: Authentication Header
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+    
+  /users/{token}/{email}:
+    get:
+      tags:
+        - Users
+      summary: Verifies a User's account
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: verifyAccount
+      parameters:
+        - in: path
+          name: token
+          type: string
+          description: Account verification token
+          required: true
+        - in: path
+          name: email
+          type: string
+          description: Email of the user
+          required: true
+      responses:
+        200:
+          description: Success
+          schema: 
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+  /users/{email}:
+    get:
+      tags:
+        - Users
+      summary: initiates resetting of user's password by sending an Email to the user
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: resetInitiate
+      parameters:
+        - in: path
+          name: email
+          type: string
+          description: the user's email address
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+    put:
+      tags:
+        - Users
+      summary: updates user's password
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: updateUser
+      parameters:
+        - in: path
+          name: email
+          type: string
+          description: user's email address
+          required: true
+        - in: body
+          name: body
+          description: contains the user's new password
+          schema:
+            type: object
+            required:
+              - password
+            properties:
+              password:
+                type: string
+                description: the new password of the user
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+  /login:
+    post:
+      tags:
+        - Users
+      summary: sign's in a user
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: userlogin
+      parameters:
+        - in: body
+          name: body
+          description: contains the required inputs to sign In a user
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                description: email of the user
+              password:
+                type: string
+                description: password of the user
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+            
+  /validate/{token}/{email}:
+    get:
+      tags:
+        - Users
+      summary: checks to see if a user is allowed to change his/her password
+      description: ""
+      x-swagger-router-controller: userroute
+      operationId: validate
+      parameters:
+        - in: path
+          name: token
+          type: string
+          description: verification Token
+          required: true
+        - in: path
+          name: email
+          type: string
+          description: email of the user
+          required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/Todo"
+        500:
+          description: Internal Server Error
+          schema: 
+            $ref: "#/definitions/Todo"
+    
+definitions:
+  Todo:
+    type: object
+    properties:
+      message:
+        description: returned message
+      Status:
+        type: number
+        description: the response's Status Code returned

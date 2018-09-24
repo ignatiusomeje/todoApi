@@ -1,0 +1,48 @@
+{
+  "name": "todo_api",
+  "version": "0.0.1",
+  "private": true,
+  "description": "My new Apigee 127 Project",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "a127-magic": "^0.12.0",
+    "volos-analytics-apigee": "",
+    "volos-analytics-common": "",
+    "volos-analytics-memory": "",
+    "volos-cache-apigee": "",
+    "volos-cache-memory": "",
+    "volos-cache-redis": "",
+    "volos-quota-apigee": "",
+    "volos-quota-memory": "",
+    "volos-quota-redis": "",
+    "volos-spikearrest-memory": "",
+    "volos-oauth-redis": "",
+    "volos-oauth-apigee": "",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10",
+    "mailgun-js": "^0.20.0",
+    "mongodb": "^3.1.4",
+    "mongoose": "^5.2.13",
+    "token-generator": "^1.0.0",
+    "validator": "^10.7.1"
+  },
+  "devDependencies": {
+    "should": "4.4.x",
+    "supertest": "0.15.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "api": {
+    "name": "Todo_Api",
+    "basePath": "/Todo_Api",
+    "main": "app.js"
+  }
+}
