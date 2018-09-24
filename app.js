@@ -5,11 +5,13 @@ var express = require('express');
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser');
 var app = express();
+const cors  = require('cors')
 
 const {create, read, readById, update, del} = require('./api/controllers/todoroute');
 const {createUser, verifyAccount, userlogin, resetInitiate, validate, updateUser, logOutUser} = require('./api/controllers/userroute')
 
 mongoose.connect("mongodb://mrexcel:jesuse153@ds259732.mlab.com:59732/todo-api");
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
