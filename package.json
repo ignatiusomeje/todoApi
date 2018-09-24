@@ -39,7 +39,7 @@
     "supertest": "0.15.x"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "a127 project start"
   },
   "api": {
     "name": "Todo_Api",
