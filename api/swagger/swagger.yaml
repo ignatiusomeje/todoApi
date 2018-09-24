@@ -3,7 +3,7 @@ info:
   description: This is a Todo App that allows registered users to perform basic CRUD operation on their todos and profile
   version: 1.0.0
   title: A Basic Todo APP
-host: localhost:3000
+host: https://gentle-bastion-30384.herokuapp.com
 basePath: "/"
 produces:
 - application/json
